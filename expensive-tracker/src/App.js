@@ -6,9 +6,11 @@ import IncomeExpensive from './components/IncomeExpensive';
 import TransitionList from './components/TransitionList';
 import AddTransition from './components/AddTransition';
 
-function App() {
+import { GlobalProvider } from './context/GlobalState';
+
+function App()  {
   return (
-    <div>
+    <GlobalProvider>
       <Header/>
       <div className='container'>
         <Balance/>
@@ -16,8 +18,7 @@ function App() {
         <TransitionList/>
         <AddTransition/>
       </div>
-    </div>
-  );
-}
-
+    </GlobalProvider>
+  )
+  };
 export default App;
