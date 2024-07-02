@@ -24,6 +24,7 @@ const Notes = ({notes = [],setNotes = () => {}}) => {
   },[notes.length])
   
   
+  //noteRefs is an empty array
   const noteRefs = useRef([]);
   const determinedNewPosition = () => {
     const maxX = window.innerWidth - 250;
@@ -34,9 +35,24 @@ const Notes = ({notes = [],setNotes = () => {}}) => {
       y: Math.floor(Math.random() * maxY)
     }
   }
-  const handleDragStart = (id,e) => {
+  const handleDragStart = (note,e) => {
+    const {id} = note;
     const noteRef = noteRefs.current[id].current;
     const rect = noteRef.getBoundingClientRect();
+    const offSetX = e.clientX - rect.left;
+    const offsetY = e.clientY - rect.top;
+
+    const startPos = note;
+
+    const handleMouseMove = () => {}
+
+    const handleMouseUp = () => {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp)
+    }
+
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp)
   }
   return (
     <div>
@@ -47,7 +63,7 @@ const Notes = ({notes = [],setNotes = () => {}}) => {
             : (noteRefs.current[note.id] = createRef())
           }
         initialPos={note.pos} content={note.text}
-          onMouseDown = {(e) => handleDragStart(note.id,e)}
+          onMouseDown = {(e) => handleDragStart(note,e)}
         ></Note>
       })}
       
