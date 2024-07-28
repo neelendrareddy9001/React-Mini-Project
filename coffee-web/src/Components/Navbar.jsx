@@ -1,6 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
+import {AioutlineClose, AiOutlineMenuUnfold} from 'react-icons/ai'
 
 const Navbar = () => {
+    const [menu, setMenu] = useState(false)
+    const handleChange = () => {
+        setMenu(!menu)
+    }
+    const closeMenu = () => {
+        setMenu(false)
+    }
   return (
     <div>
       <div>
@@ -12,7 +20,9 @@ const Navbar = () => {
                 <h1 className='text-xl font-semibold'>CafePulse</h1>
             </div>
             <nav className='hidden md:flex flex-row items-center gap-8 text-lg font-medium'>
-                <Link to="home" spy={true} smooth={true} duration={500} className="cursor-pointer">Home</Link>
+                <Link to="home" spy={true} smooth={true} duration={500} className="cursor-pointer">Home
+                    <span className='absolute inset-x-0 bottom-0 h-0.5 bg-black transform scale-x-0 origin-left transition-transform group-hover:scalex-100'></span>
+                </Link>
                 <Link to="menu" spy={true} smooth={true} duration={500} className="cursor-pointer">Menu</Link>
                 <Link to="about" spy={true} smooth={true} duration={500} className="cursor-pointer">About</Link>
                 <Link to="products" spy={true} smooth={true} duration={500} className="cursor-pointer">Products</Link>
@@ -20,6 +30,14 @@ const Navbar = () => {
             </nav>
             <div>
                 <Button title="Login"></Button>
+            </div>
+
+            <div className='md:hidden flex items-center'>
+                {menu ? (
+                    <AioutlineClose size={25} onclick={handleChange}/>
+                ) : (
+                    <AiOutlineMenuUnfold size={25} onClick={handleChange} />
+                )}
             </div>
         </div>
       </div>
